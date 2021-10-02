@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appenders>
+        <console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ISO8601} %highlight{[%-5level]}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue} %style{(%t)}{cyan} %style{%C{1.}}{yellow} %X{AWS-XRAY-TRACE-ID} - %msg%n%throwable"/>
+        </console>
+        <Console name="LogToConsole" class="ch.qos.logback.core.ConsoleAppender">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} %X{AWS-XRAY-TRACE-ID} - %msg%n"/>
+        </Console>
+    </appenders>
+    <loggers>
+        <logger name="kr.co.hist.bcheck"  level="DEBUG" additivity="true">
+            <appender-ref ref="LogToConsole" />
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </loggers>
+</configuration>

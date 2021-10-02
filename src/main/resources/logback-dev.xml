@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="INFO">
+    <appenders>
+        <Console name="LogToConsole" class="ch.qos.logback.core.ConsoleAppender">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} %X{AWS-XRAY-TRACE-ID} - %msg%n"/>
+        </Console>
+        <RollingFile name="LogToFile"
+                     fileName="logs/bcheck-app.log"
+                     filePattern="logs/bcheck-app.%d{yyyy-MM-dd}.log.gz"
+                     ignoreExceptions="false">
+            <JSONLayout compact="true" eventEol="true" />
+            <TimeBasedTriggeringPolicy />
+        </RollingFile>
+    </appenders>
+    <loggers>
+        <Logger name="co.kr.hist.bcheck" level="debug" additivity="true">
+            <AppenderRef ref="LogToFile"/>
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="org.springframework.boot" level="error" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="com.amazonaws.xray" level="debug" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+
+        <root level="INFO">
+            <AppenderRef ref="LogToConsole" />
+            <AppenderRef ref="LogToFile" />
+        </root>
+    </loggers>
+</configuration>

@@ -1,0 +1,66 @@
+# OpenAPI - Naver
+openapi:
+  naver:
+    clientID: 8LHwtR6GWztI7XY6_zt1
+    clientSecret: qJ8C9_odvW
+    url: https://openapi.naver.com/v1/search/book_adv
+
+spring:
+  application:
+    name: bcheck-api
+  profiles:
+    active: local
+  jpa:
+    show-sql: true
+
+server:
+  servlet:
+    context-path: /app
+  port: 7777
+
+# add for api gateway
+aws:
+  ses:
+    from: mjoung@hist.co.kr
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+# open api
+springdoc:
+  api-docs:
+    enabled: true
+    groups:
+      enabled: true
+  swagger-ui:
+    tags-sorter: alpha
+    display-request-duration: true
+    groups-order: desc
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+# open api
+springdoc:
+  api-docs:
+    enabled: true
+    groups:
+      enabled: true
+  swagger-ui:
+    tags-sorter: alpha
+    display-request-duration: true
+    groups-order: desc
+---
+spring:
+  config:
+    activate:
+      on-profile: prd
+  pid:
+    file: bcheck.pid
+# open api
+springdoc:
+  api-docs:
+    enabled: false
